@@ -10,12 +10,9 @@ import requests
 workers = 4
 file_in = "urls.txt"
 
-
 def sub_worker(task):
     r = requests.get(task)
     html = r.text
-
-    
 
 def worker():
     while not q.empty():
@@ -33,8 +30,6 @@ def loader():
             if len(line.strip()) > 1:
                 q.put(line.strip(), timeout=3)
 
-                     
-
 def asynchronous():
     threads = []
     for i in range(0, workers):
@@ -50,4 +45,3 @@ q = gevent.queue.JoinableQueue()
 gevent.spawn(loader).join()
 bar = IncrementalBar('Processing', max=q.qsize())
 asynchronous()
-
