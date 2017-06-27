@@ -3,7 +3,6 @@ from gevent.queue import *
 import gevent.monkey
 from timeit import default_timer as timer
 import random
-gevent.monkey.patch_all()
 from progress.bar import IncrementalBar
 import requests
 
@@ -41,6 +40,7 @@ def asynchronous():
     print ""
     print "Time passed: " + str(end - start)[:6]
 
+gevent.monkey.patch_all()
 q = gevent.queue.JoinableQueue()
 gevent.spawn(loader).join()
 bar = IncrementalBar('Processing', max=q.qsize())
